@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/main.css">
-    <script src="/script.js" defer></script>
+    <script type="module" src="/script.js" defer></script>
     <title>RPG-JS</title>
 </head>
 <body>
@@ -13,17 +13,15 @@
     <div class="container">
         <div class="rpg__title">rpg-js</div>
         <div class="rpg__char">
-            <div class="char__info">
-                <ul class="info-list">
-                    <li class="info-item">Имя</li>
-                    <li class="info-item">Тип персонажа</li>
-                    <li class="info-item">Здоровье</li>
-                    <li class="info-item">Сила</li>
-                    <li class="info-item">Защита</li>
-                    <li class="info-item">Уровень</li>
-                    <li class="info-item">Инвентарь</li>
-                </ul>
-            </div>
+            <ul class="char__info-list">
+                    <li class="char__info-item">Имя</li>
+                    <li class="char__info-item">Тип персонажа</li>
+                    <li class="char__info-item">Здоровье</li>
+                    <li class="char__info-item">Сила</li>
+                    <li class="char__info-item">Защита</li>
+                    <li class="char__info-item">Уровень</li>
+                    <li class="char__info-item">Инвентарь</li>
+            </ul>
             <div class="char__controls">
                 <button class="controls__attack">Атаковать</button>
                 <button class="controls__defense">Защищаться</button>
@@ -31,13 +29,14 @@
             </div>
         </div>
         <div class="rpg__location">
-            <div class="location__title">Текущаяя локация</div>
-            <button class="location__wood">Идти в лес</button>
-            <button class="location__dungeon">Идти в подземелье</button>
-            <button class="location__village">Вернуться в деревню</button>
+            <div class="location__now">Текущаяя локация: Выберите локацию</div>
+            <div class="location__buttons">
+                <button class="location__wood loc-btn">Идти в лес</button>
+                <button class="location__dungeon loc-btn">Идти в подземелье</button>
+                <button class="location__village loc-btn">Вернуться в деревню</button>
+            </div>
         </div>
         <div class="rpg__event-list">
-            <div></div>
         </div>
     </div>
 </div>
