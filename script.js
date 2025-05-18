@@ -98,7 +98,7 @@ function handleAttack() {
   }
 
   setTimeout(() => enemyTurn(), 1000);
-  // endCombat();
+
 }
 
 function handleDefense() {
@@ -140,12 +140,33 @@ function endCombat(victory) {
   disabledButtons(locationButtons, false); // Разблокируем кнопки локаций
 
   if (victory) {
-    setMessage(consoleEvent, `Вы победили ${currentEnemy.name}!`);
-    for (let key in userChar) {
-      if (key !== 'name' && key !== 'type') {
-        userChar[key] += 1
-      }
-    }
+    // Улучшаемые характеристики
+    const statsToImprove = ['health', 'strength', 'defense', 'level'];
+    const improvements = {
+      health: 2,
+      strength: 1,
+      defense: 1,
+      level: 1
+    };
+
+    // Увеличиваем характеристики
+    statsToImprove.forEach(stat => {
+      userChar[stat] += improvements[stat];
+    });
+
+    setMessage(consoleEvent, `
+      Победа! ${currentEnemy.name} повержен!
+      Уровень: +1 (${userChar.level})
+      Здоровье: +2 (${userChar.health})
+      Сила: +1 (${userChar.strength})
+      Защита: +1 (${userChar.defense})
+    `);
+
+
+    const loot = ['Зелье здоровья', 'Меч', 'Щит', 'Золото (10)'];
+    const randomLoot = loot[Math.floor(Math.random() * loot.length)];
+    userChar.inventory.push(randomLoot);
+    setMessage(consoleEvent, `Вы получили: ${randomLoot}`);
     updateCharInfo()
   } else {
     setMessage(consoleEvent, `Вы потерпели поражение...`);

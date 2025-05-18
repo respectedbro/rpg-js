@@ -94,4 +94,8 @@ form {
     overflow: scroll;
 }
 
+.hidden {
+    display: none;
+}
+
 

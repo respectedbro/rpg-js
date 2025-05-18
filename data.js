@@ -13,9 +13,9 @@ const propertyNames = {
 };
 
 const raceStats = {
-  human: {type: 'Человек', health: 10, strength: 2, defense: 2},
-  elf: {type: 'Эльф', health: 8, strength: 3, defense: 1},
-  dwarf: {type: 'Гном', health: 12, strength: 1, defense: 3}
+  human: {type: 'Человек', health: 3, strength: 2, defense: 2},
+  elf: {type: 'Эльф', health: 2, strength: 3, defense: 1},
+  dwarf: {type: 'Гном', health: 4, strength: 1, defense: 3}
 };
 
 const userChar = {
@@ -31,12 +31,12 @@ const userChar = {
 const enemies = {
   orc: {
     name: 'Орк',
-    health: 5,
+    health: 2,
     strength: 1,
     defense: 2
   },
   troll: {
-    name: 'Троль',
+    name: 'Тролль',
     health: 3,
     strength: 2,
     defense: 3
