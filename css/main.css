@@ -4,6 +4,10 @@ body, html {
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -86,6 +90,10 @@ form {
     display: none;
 }
 
+.location__ways-remains {
+    display: none;
+}
+
 .rpg__event-list {
     max-width: 400px;
     height: 200px;
@@ -94,8 +102,14 @@ form {
     overflow: scroll;
 }
 
+.message {
+    padding: 5px 5px;
+}
+
 .hidden {
     display: none;
 }
+
+
 
 

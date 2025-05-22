@@ -9,174 +9,92 @@ let currentEnemy = null;
 function getLocationName(elem) {
   if (elem.classList.contains('location__wood')) return 'Лес';
   if (elem.classList.contains('location__dungeon')) return 'Подземелье';
-  if (elem.classList.contains('location__village')) return 'Деревня';
+  if (elem.classList.contains('location__remains')) return 'Руины храма';
   return null;
 }
 
-function disabledButtons(buttons, disabled) {
+
+
+function toggleLocButtons(buttons) {
   buttons.forEach(btn => {
-    if (inCombat) {
-      btn.disabled = '';
-    } else {
-      btn.disabled = disabled;
-    }
-
+    btn.classList.toggle('hidden');
   });
 }
 
-function toggleLocButtons(btns) {
-  btns.forEach(btn => {
-    btn.style.display = 'none';
-  });
+function hiddenButton(btn) {
+  btn.style.display = 'none';
 }
 
-function setMessage(place, mess) {
+function setMessage(mess) {
   const messageEvent = document.createElement('div');
+  messageEvent.classList.add('message');
   messageEvent.textContent = mess;
-  place.append(messageEvent);
+  consoleEvent.append(messageEvent);
 }
 
 locations.addEventListener('click', (e) => {
   if (inCombat) return;
 
   const locationName = getLocationName(e.target);
+  if (!locationName) return;
 
-  if (locationName) {
-    locationNow.textContent = `Текущая локация: ${locationName}`;
-  }
+  locationNow.textContent = `Текущая локация: ${locationName}`;
 
   if (locationName === 'Лес') {
     toggleLocButtons(locationButtons);
     const locationWays = document.querySelector('.location__ways');
     locationWays.style.display = 'flex';
-    setMessage(consoleEvent, `...В дали слышен шум`);
+    setMessage(
+        `...Вы входите в густой древний лес. Воздух наполнен странными звуками, а между деревьями мелькают тени...`);
+    hiddenButton(e.target);
 
     locationWays.addEventListener('click', (e) => {
       if (e.target.classList.contains('location__wood')) {
-        setMessage(consoleEvent, `...Из-за дерева выходит огромное туловище)`);
-        locationWays.style.display = 'none';
+        setMessage(
+            `...Вы углубляетесь в лес и внезапно перед вами появляется огромное туловище!`);
+        hiddenButton(locationWays);
         startCombat('orc');
       } else if (e.target.classList.contains('location__bush')) {
-        setMessage(consoleEvent, `...Вы нашли Зелье здоровья!`);
+        setMessage(`...Среди кустов вы находите Зелье здоровья!`);
         userChar.inventory.push('Зелье здоровья');
+        hiddenButton(e.target);
         updateCharInfo();
-        e.target.disabled = true;
-        e.target.style.opacity = '0.5';
       }
     });
   }
-});
 
-function startCombat(enemyType) {
-  inCombat = true;
-  currentEnemy = {...enemies[enemyType]}; // Копируем врага
-  disabledButtons(locationButtons, true); // Блокируем кнопки локаций
-  disabledButtons(controlsBtns, false); // Разблокируем кнопки боя
-  setMessage(consoleEvent,
-      `...Это ${currentEnemy.name}! Здоровье: ${currentEnemy.health}`);
-
-  const attackBtn = document.querySelector('.controls__attack');
-  const defenseBtn = document.querySelector('.controls__defense');
-
-  attackBtn.addEventListener('click', handleAttack);
-  defenseBtn.addEventListener('click', handleDefense);
-}
-
-function handleAttack() {
-  if (!inCombat) {
-    return;
-  }
-  const damage = Math.max(1, userChar.strength - currentEnemy.defense);
-  currentEnemy.health -= damage;
-
-  setMessage(consoleEvent,
-      `*${userChar.name} атакует и наносит ${damage} урона!`);
-
-  if (currentEnemy.health <= 0) {
-    endCombat(true);
-    return;
+  if (locationName === 'Подземелье') {
+    hiddenButton(e.target);
+    setMessage(`...Вы идёте по тёмному подземелью и сзади на вас кто-то бежит`);
+    startCombat('troll');
+    toggleLocButtons(locationButtons);
   }
 
-  setTimeout(() => enemyTurn(), 1000);
+  if (locationName === 'Руины храма') {
+    toggleLocButtons(locationButtons);
+    const locationRemains = document.querySelector('.location__ways-remains');
+    console.log(locationRemains);
+    locationRemains.style.display = 'flex';
+    setMessage(
+        `...Вы стоите перед древними Руинами Храма. Когда-то здесь поклонялись забытому богу, пока жрецы не начали проводить тёмные ритуалы. Теперь место излучает зловещую энергию...`);
 
-}
+    hiddenButton(e.target);
 
-function handleDefense() {
-  if (!inCombat) return;
-
-  // Уменьшаем получаемый урон при защите
-  const defenseBonus = 2;
-  setMessage(consoleEvent, `*${userChar.name} готовится к защите!`);
-
-  // Ход врага с бонусом защиты
-  setTimeout(() => enemyTurn(defenseBonus), 1000);
-}
-
-function enemyTurn(defenseBonus = 0) {
-  if (!inCombat) return;
-
-  // Урон врага с учетом защиты
-  const damage = Math.max(1,
-      currentEnemy.strength - (userChar.defense + defenseBonus));
-  userChar.health -= damage;
-  updateCharInfo();
-
-  setMessage(consoleEvent,
-      `-${currentEnemy.name} атакует и наносит ${damage} урона!`);
-
-  // Проверяем поражение
-  if (userChar.health <= 0) {
-    endCombat(false);
-    return;
-  }
-
-  setMessage(consoleEvent,
-      `Ваше здоровье: ${userChar.health}. Здоровье ${currentEnemy.name}: ${currentEnemy.health}`);
-}
-
-function endCombat(victory) {
-  inCombat = false;
-  disabledButtons(controlsBtns, true); // Блокируем кнопки боя
-  disabledButtons(locationButtons, false); // Разблокируем кнопки локаций
-
-  if (victory) {
-    // Улучшаемые характеристики
-    const statsToImprove = ['health', 'strength', 'defense', 'level'];
-    const improvements = {
-      health: 2,
-      strength: 1,
-      defense: 1,
-      level: 1
-    };
-
-    // Увеличиваем характеристики
-    statsToImprove.forEach(stat => {
-      userChar[stat] += improvements[stat];
+    locationRemains.addEventListener('click', (e) => {
+      if (e.target.classList.contains('location__r')) {
+        setMessage(
+            `...Среди обломков вы находите древний текст: "Когда жрецы возжелали бессмертия, бог наслал на них проклятие, превратив в камень..."`);
+        setMessage(`Вы нашли артефакт`)
+        userChar.inventory.push('Артефакт');
+        hiddenButton(e.target);
+        updateCharInfo();
+      } else if (e.target.classList.contains('location__b')) {
+        setMessage(
+            `...Вы входите в полуразрушенный зал. В центре на пьедестале лежит древний артефакт, окружённый странным свечением!`);
+        hiddenButton(locationRemains)
+        startCombat('temple_guardian');
+      }
     });
-
-    setMessage(consoleEvent, `
-      Победа! ${currentEnemy.name} повержен!
-      Уровень: +1 (${userChar.level})
-      Здоровье: +2 (${userChar.health})
-      Сила: +1 (${userChar.strength})
-      Защита: +1 (${userChar.defense})
-    `);
-
-
-    const loot = ['Зелье здоровья', 'Меч', 'Щит', 'Золото (10)'];
-    const randomLoot = loot[Math.floor(Math.random() * loot.length)];
-    userChar.inventory.push(randomLoot);
-    setMessage(consoleEvent, `Вы получили: ${randomLoot}`);
-    updateCharInfo()
-  } else {
-    setMessage(consoleEvent, `Вы потерпели поражение...`);
-
   }
 
-  currentEnemy = null;
-}
-
-
-
-
-
+});
