@@ -95,20 +95,44 @@ form {
 }
 
 .rpg__event-list {
-    max-width: 400px;
-    height: 200px;
-    width: 100%;
-    border: 1px solid black;
-    overflow: scroll;
+    overflow-y: auto; /* Включаем вертикальный скролл */
+    max-height: 300px; /* Фиксированная высота контейнера */
+    display: flex;
+    flex-direction: column; /* Новые сообщения появляются снизу */
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
 .message {
-    padding: 5px 5px;
+    margin: 5px 0;
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    word-wrap: break-word;
 }
 
-.hidden {
-    display: none;
+/* Опционально: стили для скроллбара */
+.rpg__event-list::-webkit-scrollbar {
+    width: 8px;
 }
+
+.rpg__event-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.rpg__event-list::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.rpg__event-list::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
 
 
 

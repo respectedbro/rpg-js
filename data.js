@@ -11,8 +11,8 @@ const propertyNames = {
 
 const raceStats = {
   human: {type: 'Человек', health: 10, strength: 12, defense: 2},
-  elf: {type: 'Эльф', health: 2, strength: 13, defense: 1},
-  dwarf: {type: 'Гном', health: 4, strength: 10, defense: 3}
+  elf: {type: 'Эльф', health: 9, strength: 13, defense: 1},
+  dwarf: {type: 'Гном', health: 11, strength: 11, defense: 3}
 };
 
 const userChar = {

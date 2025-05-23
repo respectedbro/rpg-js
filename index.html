@@ -10,6 +10,7 @@
     <script src="script.js" defer></script>
     <script src="combat.js" defer></script>
     <script src="restartGame.js" defer></script>
+    <script src="combatLocations.js" defer></script>
     <title>RPG-JS</title>
 </head>
 <body>
@@ -54,19 +55,12 @@
                 <div class="char__controls">
                     <button class="controls__attack cnt-btn" disabled>Атаковать</button>
                     <button class="controls__defense cnt-btn" disabled>Защищаться</button>
-                    <button class="controls__use-item cnt-btn" disabled>Использовать предмет</button>
+                    <button class="controls__use-item cnt-btn" disabled>Использовать зелье</button>
                 </div>
             </div>
             <div class="rpg__location">
                 <div class="location__now">Текущая локация: Деревня</div>
-                <div class="location__ways">
-                    <button class="location__bush way-btn">Осмотреть кусты</button>
-                    <button class="location__wood way-btn">Пройти в глубь леса</button>
-                </div>
-                <div class="location__ways-remains">
-                    <button class="location__r way-btn">Осмотреть руины</button>
-                    <button class="location__b way-btn">Войти в храм</button>
-                </div>
+
                 <div class="location__buttons">
                     <button class="location__wood loc-btn">Идти в лес</button>
                     <button class="location__dungeon loc-btn">Идти в подземелье</button>

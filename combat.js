@@ -1,8 +1,8 @@
 function startCombat(enemyType) {
   inCombat = true;
   currentEnemy = {...enemies[enemyType]};
-  disabledButtons(locationButtons, true);
   disabledButtons(controlsBtns, false);
+  disabledButtons(locationButtons, true)
   setMessage(`...Это ${currentEnemy.name}! Здоровье: ${currentEnemy.health}`);
 
   const attackBtn = document.querySelector('.controls__attack');
@@ -14,11 +14,6 @@ function startCombat(enemyType) {
   healthyPotionBtn.addEventListener('click', handlePotion);
 }
 
-function disabledButtons(buttons, disabled) {
-  buttons.forEach(btn => {
-    inCombat ? btn.disabled = '' : btn.disabled = disabled;
-  });
-}
 
 function handlePotion() {
   const potionIndex = userChar.inventory.indexOf('Зелье здоровья');
@@ -93,9 +88,6 @@ function endCombat(victory) {
 
 
   if (victory) {
-    toggleLocButtons(locationButtons);
-    disabledButtons(locationButtons, false);
-
     const statsToImprove = ['health', 'strength', 'defense', 'level'];
     const improvements = {
       health: 2,
@@ -129,16 +121,11 @@ function endCombat(victory) {
       userChar.inventory.push(randomLoot);
       setMessage(`Вы получили: ${randomLoot}`);
     }
-
+    disabledButtons(locationButtons, false)
     updateCharInfo();
   } else {
-    locationButtons.forEach(btn => {
-      btn.style.display = 'none';
-    })
     setMessage(`Вы потерпели поражение...`);
-
   }
-
   currentEnemy = null;
 }
 
