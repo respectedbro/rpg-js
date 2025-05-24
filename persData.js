@@ -22,7 +22,7 @@ const userChar = {
   strength: 0,
   defense: 0,
   level: 1,
-  inventory: []
+  inventory: ['Зелье здоровья']
 };
 
 const enemies = {
@@ -40,8 +40,8 @@ const enemies = {
   },
   temple_guardian: {
     name: "Каменный Страж",
-    health: 15,
-    strength: 5,
+    health: 16,
+    strength: 10,
     defense: 3,
   }
 

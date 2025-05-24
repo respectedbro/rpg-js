@@ -28,8 +28,9 @@ function setMessage(mess) {
     const messageEvent = document.createElement('div');
     messageEvent.classList.add('message');
     messageEvent.textContent = mess;
-    consoleEvent.prepend(messageEvent); // Добавляем сообщение в начало
-
+    setTimeout(() => {
+        consoleEvent.prepend(messageEvent); // Добавляем сообщение в начало
+    }, 700)
     // Прокрутка к верхнему сообщению
     consoleEvent.scrollTop = 0;
 }

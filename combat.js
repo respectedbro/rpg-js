@@ -46,25 +46,22 @@ function handleAttack() {
     return;
   }
 
-  setTimeout(() => enemyTurn(), 100);
+  setTimeout(() => enemyTurn(), 500);
 
 }
 
 function handleDefense() {
   if (!inCombat) return;
 
-  // Уменьшаем получаемый урон при защите
   const defenseBonus = 2;
   setMessage(`*${userChar.name} готовится к защите!`);
 
-  // Ход врага с бонусом защиты
   setTimeout(() => enemyTurn(defenseBonus), 100);
 }
 
 function enemyTurn(defenseBonus = 0) {
   if (!inCombat) return;
 
-  // Урон врага с учетом защиты
   const enemyAttack = Math.floor(Math.random() * currentEnemy.strength) + 1;
   const damage = Math.max(1, enemyAttack - (userChar.defense + defenseBonus));
 
@@ -90,9 +87,9 @@ function endCombat(victory) {
   if (victory) {
     const statsToImprove = ['health', 'strength', 'defense', 'level'];
     const improvements = {
-      health: 2,
-      strength: 1,
-      defense: 1,
+      health: 3,
+      strength: 3,
+      defense: 2,
       level: 1
     };
     statsToImprove.forEach(stat => {
@@ -113,7 +110,7 @@ function endCombat(victory) {
     `);
     }
 
-    const loot = ['Меч', 'Щит', null];
+    const loot = ['Меч', 'Щит', null, 'Зелье здоровья'];
     const randomLoot = loot[Math.floor(Math.random() * loot.length)];
     if (randomLoot === null) {
       setMessage(`У врага ничего не было`);

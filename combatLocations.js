@@ -1,7 +1,13 @@
 function combatLocations(e) {
     setMessage(`...Вы входите в густой древний лес...`);
-    setMessage(`...Перед вами появляется огромное туловище!`);
-    startCombat('orc');
+    setTimeout(() => {
+        setMessage(`...Перед вами появляется огромное туловище!`);
+    }, 1000)
+    setTimeout(() => {
+        startCombat('orc');
+    }, 1500)
+
+
 }
 
 function locationDungeon(e) {

@@ -1,11 +1,77 @@
 body, html {
     height: 100%;
     margin: 0;
+    color: #8fb8fb;
     padding: 0;
+    background-color: #1c1a1a;
+    text-shadow: 0 0 5px rgb(242 242 242 / 75%);
 }
 
 .hidden {
     display: none;
+}
+
+button {
+    display: inline-block;
+    box-shadow: none;
+    background: transparent none;
+    cursor: pointer;
+    border: 1px solid #3c3a3a;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+button:hover {
+    color: #ffffff;
+}
+button:disabled {
+    opacity: 0.5;
+}
+
+.start__info {
+    border: 1px solid black;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 0 5px rgb(200 200 200 / 75%);
+}
+
+.start__pick {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.start__pick input {
+    max-width: 100px;
+    padding: 5px;
+    font-size: 16px;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #4d4444;
+    color: #000000;
+    border-style: solid;
+    border-radius: 0;
+    box-shadow: 0 0 5px rgb(200 200 200 / 75%);
+    text-shadow: 0 0 5px rgb(242 242 242 / 75%);
+}
+
+#startGame {
+    padding: 7px;
+    width: 100%;
+    max-width: 200px;
+    text-shadow: 0 0 5px rgb(242 242 242 / 75%);
+    border-radius: 4px;
+    border: 1px solid #fff;
+}
+
+#startGame:hover {
+    color: #fff;
 }
 
 form {
@@ -16,11 +82,30 @@ form {
 .pick__race {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
 }
+
 .race-field {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+.race-field label {
+    order: 1;
+    margin-right: 10px;
+}
+
+.race-field label:hover {
+    color: #ffffff;
+}
+
+.race-field input[type="radio"] {
+    order: 2;
 }
 
 .rpg {
@@ -46,19 +131,20 @@ form {
 .rpg__wrapper {
     max-width: 600px;
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #fff;
     display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
     padding: 20px 20px;
+    box-shadow: 0 0 5px rgb(200 200 200 / 75%);
 }
 
 .rpg__char {
     display: flex;
     gap: 30px;
-    justify-content: space-evenly   ;
+    justify-content: space-evenly;
     width: 100%;
 }
 
@@ -95,12 +181,12 @@ form {
 }
 
 .rpg__event-list {
-    overflow-y: auto; /* Включаем вертикальный скролл */
-    max-height: 300px; /* Фиксированная высота контейнера */
+    overflow-y: auto;
+    max-height: 300px;
     display: flex;
-    flex-direction: column; /* Новые сообщения появляются снизу */
+    flex-direction: column;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #1c1a1a;;
     border-radius: 5px;
     margin-top: 10px;
 }
@@ -108,13 +194,13 @@ form {
 .message {
     margin: 5px 0;
     padding: 8px;
-    background-color: #fff;
+    background-color: #24283c;
     border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 0 22px rgb(242 242 242 / 24%);
     word-wrap: break-word;
 }
 
-/* Опционально: стили для скроллбара */
 .rpg__event-list::-webkit-scrollbar {
     width: 8px;
 }
@@ -130,6 +216,15 @@ form {
 
 .rpg__event-list::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.restart-btn {
+    padding: 7px;
+    width: 100%;
+    max-width: 200px;
+    text-shadow: 0 0 5px rgb(242 242 242 / 75%);
+    border-radius: 4px;
+    border: 1px solid #fff;
 }
 
 
