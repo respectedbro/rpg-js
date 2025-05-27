@@ -41,7 +41,7 @@ function updateCharInfo() {
 
   for (let key in userChar) {
     const listItem = document.createElement('li');
-    listItem.className = '.char__info-item';
+    listItem.className = 'char__info-item';
 
     let value = userChar[key];
     if (key === 'inventory') {

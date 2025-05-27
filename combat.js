@@ -1,3 +1,7 @@
+
+const attackBtn = document.querySelector('.controls__attack');
+const defenseBtn = document.querySelector('.controls__defense');
+const healthyPotionBtn = document.querySelector('.controls__use-item');
 function startCombat(enemyType) {
   inCombat = true;
   currentEnemy = {...enemies[enemyType]};
@@ -5,9 +9,13 @@ function startCombat(enemyType) {
   disabledButtons(locationButtons, true)
   setMessage(`...Это ${currentEnemy.name}! Здоровье: ${currentEnemy.health}`);
 
-  const attackBtn = document.querySelector('.controls__attack');
-  const defenseBtn = document.querySelector('.controls__defense');
-  const healthyPotionBtn = document.querySelector('.controls__use-item');
+  // const attackBtn = document.querySelector('.controls__attack');
+  // const defenseBtn = document.querySelector('.controls__defense');
+  // const healthyPotionBtn = document.querySelector('.controls__use-item');
+
+  attackBtn.removeEventListener('click', handleAttack);
+  defenseBtn.removeEventListener('click', handleDefense);
+  healthyPotionBtn.removeEventListener('click', handlePotion);
 
   attackBtn.addEventListener('click', handleAttack);
   defenseBtn.addEventListener('click', handleDefense);
@@ -19,14 +27,25 @@ function handlePotion() {
   const potionIndex = userChar.inventory.indexOf('Зелье здоровья');
 
   if (potionIndex !== -1) {
-    userChar.health += 5;
 
-    userChar.inventory.splice(potionIndex, 1);
+    let maxHealth;
+    if (userChar.type === raceStats.human.type) maxHealth = raceStats.human.health;
+    else if (userChar.type === raceStats.elf.type) maxHealth = raceStats.elf.health;
+    else if (userChar.type === raceStats.dwarf.type) maxHealth = raceStats.dwarf.health;
 
-    setMessage(`Использовано Зелье здоровья! +5`);
+    const healAm = Math.min(5, maxHealth - userChar.health);
+
+    if (healAm > 0) {
+      userChar.health += healAm;
+      userChar.inventory.splice(potionIndex, 1);
+      setMessage(`Использовано Зелье здоровья! +${healAm}`);
+    } else {
+      setMessage(`Ваше здоровье уже максимальное!`);
+    }
+
     updateCharInfo();
   } else {
-    setMessage( `У вас нет Зелья здоровья!`);
+    setMessage(`У вас нет Зелья здоровья!`);
   }
 }
 
@@ -83,6 +102,7 @@ function endCombat(victory) {
   inCombat = false;
   disabledButtons(controlsBtns, true);
 
+  // locationButtons.forEach(btn => showButton(btn));
 
   if (victory) {
     const statsToImprove = ['health', 'strength', 'defense', 'level'];

@@ -9,6 +9,8 @@ function restartGame() {
     userChar.level = 1;
     userChar.inventory = ['Зелье здоровья'];
 
+    updateCharInfo()
+
     inCombat = false;
     currentEnemy = null;
 
@@ -18,11 +20,9 @@ function restartGame() {
     disabledButtons(controlsBtns, true);
     disabledButtons(locationButtons, false);
 
-    document.querySelectorAll('.loc-btn').forEach(btn => {
-        btn.classList.remove('hidden');
-    });
+    locationButtons.forEach(btn => showButton(btn));
 
-    startInfo.style.display = 'block';
+    startInfo.style.display = 'flex';
     rpgWrapper.style.display = 'none';
 
     charInputName.value = '';

@@ -20,8 +20,12 @@ function disabledButtons(buttons, disabled) {
     });
 }
 
-function hiddenButton(btn) {
-    btn.classList.toggle('hidden');
+function hideButton(btn) {
+    btn.classList.add('hidden');
+}
+
+function showButton(btn) {
+    btn.classList.remove('hidden');
 }
 
 function setMessage(mess) {
@@ -29,21 +33,21 @@ function setMessage(mess) {
     messageEvent.classList.add('message');
     messageEvent.textContent = mess;
     setTimeout(() => {
-        consoleEvent.prepend(messageEvent); // Добавляем сообщение в начало
+        consoleEvent.prepend(messageEvent);
     }, 700)
-    // Прокрутка к верхнему сообщению
+
     consoleEvent.scrollTop = 0;
 }
 
 locations.addEventListener('click', (e) => {
-    hiddenButton(e.target);
+    hideButton(e.target);
     const locationName = getLocationName(e.target);
     if (!locationName) {
         return;
     }
     locationNow.textContent = `Текущая локация: ${locationName}`;
     if (locationName === 'Лес') {
-        combatLocations(e);
+        locationWood(e);
     }
     if (locationName === 'Подземелье') {
         locationDungeon(e);
